@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha Editável — Praeludium RPG</title>
+</head>
+
+<body>
+
+    <div class="toolbar">
+        <button onclick="saveSheet()">Salvar no navegador</button>
+        <button onclick="loadSheet()">Carregar</button>
+        <button onclick="exportJSON()">Exportar JSON</button>
+
+        <label>
+            Importar JSON
+            <input type="file" accept=".json" onchange="importJSON(event)">
+        </label>
+
+        <button onclick="window.print()">Imprimir / PDF</button>
+        <button onclick="clearSheet()">Limpar</button>
+
+        <span class="hint">
+            Ficha editável local: seus dados ficam no próprio navegador.
+        </span>
+    </div>
+
+    <form id="sheetForm">
+
+        <section class="sheet">
+
+            <h1 class="title">
+                PRAELUDIUM
+                <small>RPG</small>
+            </h1>
+
+            <div class="top-grid">
+
+                <div class="field">
+                    <label>Jogador</label>
+                    <input name="jogador">
+                </div>
+
+                <div class="field">
+                    <label>Personagem</label>
+                    <input name="personagem">
+                </div>
+
+                <div class="field">
+                    <label>Nível</label>
+                    <input class="small" name="nivel">
+                </div>
+
+            </div>
+
+            <div class="vitals">
+
+                <div class="panel">
+                    <div class="section-title">Pontos de Vida</div>
+
+                    <div class="two-inputs">
+                        <div>
+                            <span>Atual</span>
+                            <input name="pv_atual">
+                        </div>
+
+                        <div>
+                            <span>Temporário</span>
+                            <input name="pv_temp">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="section-title">Pontos de Energia</div>
+
+                    <div class="two-inputs">
+                        <div>
+                            <span>Atual</span>
+                            <input name="pe_atual">
+                        </div>
+
+                        <div>
+                            <span>Temporário</span>
+                            <input name="pe_temp">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="section-title">Exaustão</div>
+
+                    <div class="exhaustion"
+                         data-checks="exaustao"
+                         data-count="5">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="main-grid">
+
+                <div>
+
+                    <div class="move-grid">
+
+                        <div class="panel field">
+                            <label>Movimentação</label>
+                            <input
+                                name="movimentacao"
+                                placeholder="6 + 1/2 Agilidade">
+                        </div>
+
+                        <div class="panel field">
+                            <label>Bloqueio</label>
+                            <input
+                                name="bloqueio"
+                                placeholder="Armadura + Escudo">
+                        </div>
+
+                    </div>
+
+                    <div class="panel">
+                        <div class="section-title">Parâmetros</div>
+
+                        <div
+                            class="stats-grid"
+                            id="parametros">
+                        </div>
+                    </div>
+
+                    <div class="panel">
+
+                        <div class="section-title">
+                            Conhecimentos
+                        </div>
+
+                        <div
+                            class="stats-grid"
+                            id="conhecimentos">
+                        </div>
+
+                        <div
+                            class="field"
+                            style="margin-top:8px">
+
+                            <label>Maestrias</label>
+
+                            <textarea name="maestrias"></textarea>
+
+                        </div>
+
+                        <div class="field">
+                            <label>Percepção Passiva</label>
+                            <input name="percepcao_passiva">
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <div class="panel">
+
+                        <div class="section-title">
+                            Equipamentos
+                        </div>
+
+                        <table class="equip-table">
+
+                            <thead>
+                                <tr>
+                                    <th>Armamento</th>
+                                    <th>Dano</th>
+                                    <th>Alcance</th>
+                                    <th>Propriedade</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="weapons"></tbody>
+
+                        </table>
+
+                        <table
+                            class="equip-table"
+                            style="margin-top:8px">
+
+                            <thead>
+                                <tr>
+                                    <th>Armadura e Escudo</th>
+                                    <th>Bloqueio</th>
+                                    <th>Inaptidão</th>
+                                    <th>Propriedade</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="armor"></tbody>
+
+                        </table>
+
+                    </div>
+
+                    <div class="panel">
+
+                        <div class="section-title">
+                            Inventário
+                        </div>
+
+                        <div class="inventory-grid">
+
+                            <div class="inv-lines">
+                                <textarea
+                                    name="inventario"
+                                    placeholder="Itens, equipamentos, consumíveis...">
+                                </textarea>
+                            </div>
+
+                            <div class="inventory-side">
+
+                                <div class="mini-grid">
+
+                                    <div class="field">
+                                        <label>Potência</label>
+                                        <input name="potencia">
+                                    </div>
+
+                                    <div class="field">
+                                        <label>Sistema de Unidade</label>
+                                        <input name="pontuacao_unidade">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="panel notes notes-desktop-fill">
+
+                        <div class="section-title">
+                            Anotações
+                        </div>
+
+                        <textarea name="anotacoes"></textarea>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="footer">
+
+                <strong>
+                    Distribuição Inicial (Nível de Despertar 1):
+                </strong>
+
+                <br>
+
+                Distribuição de Pontos: 7 Parâmetros |
+                7 Conhecimentos &nbsp; • &nbsp;
+                Pontos de Vida: 30 + 1d6 + Vigor &nbsp; • &nbsp;
+                Pontos de Energia: 5 &nbsp; • &nbsp;
+                Maestria: 2
+
+            </div>
+
+        </section>
+
+        <section class="sheet page-break">
+
+            <h2
+                class="title"
+                style="font-size:34px">
+                Habilidades de Caminho de Combate
+            </h2>
+
+            <div
+                class="ability-grid"
+                id="abilities1">
+            </div>
+
+            <div class="panel notes">
+
+                <div class="section-title">
+                    Outros
+                </div>
+
+                <textarea name="outros_1"></textarea>
+
+            </div>
+
+            <div class="footer">
+                Tipo de Ação: I (Iniciativa), A (Ativa),
+                R (Rápida), S (Simples), Ac (Acelerada).
+                Marcadores: Conjuração, Foco e Transformação.
+            </div>
+
+        </section>
+
+        <section class="sheet page-break">
+
+            <h2
+                class="title"
+                style="font-size:34px">
+                Habilidades de Caminho de Combate
+            </h2>
+
+            <div
+                class="ability-grid"
+                id="abilities2">
+            </div>
+
+            <div class="panel notes">
+
+                <div class="section-title">
+                    Outros
+                </div>
+
+                <textarea name="outros_2"></textarea>
+
+            </div>
+
+            <div class="footer">
+                Tipo de Ação: I (Iniciativa), A (Ativa),
+                R (Rápida), S (Simples), Ac (Acelerada).
+                Marcadores: Conjuração, Foco e Transformação.
+            </div>
+
+        </section>
+
+    </form>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
